@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { fetchWeather } from './api/fetchWeather';
 
 const App = () => {
+    const [query, setQuery] = useState('');
+    
+    const search = async(e) => {
+        if(e.key === 'Enter') {
+            const data = await fetchWeather(query)
+
+            console.log(data);
+        }
+    }
+
     return (
         <div>
-            <h1>App</h1>
+            <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyPress={search}
+            />
         </div>
     )
 }
